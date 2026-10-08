@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tiny10 a la place de Windows 10</title>
+<style>
+  :root{
+    --fond:#0f1115; --carte:#171a21; --carte2:#1d2129; --bord:#262b35;
+    --texte:#e7e9ee; --doux:#9aa3b2; --accent:#1267B5; --accent-clair:#4aa3ff;
+    --attention:#c8871f; --danger:#c0392b; --ok:#2f9e6b;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--fond); color:var(--texte);
+    font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{max-width:880px;margin:0 auto;padding:56px 24px 96px}
+
+  header{border-bottom:1px solid var(--bord);padding-bottom:32px;margin-bottom:40px}
+  .etiquette{
+    display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--accent-clair);background:rgba(18,103,181,.14);
+    border:1px solid rgba(74,163,255,.28);border-radius:999px;padding:6px 14px;margin-bottom:20px;
+  }
+  h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 16px;letter-spacing:-.02em}
+  header p{color:var(--doux);font-size:17px;margin:0;max-width:62ch}
+
+  h2{
+    font-size:22px;margin:56px 0 20px;letter-spacing:-.01em;
+    display:flex;align-items:center;gap:14px;
+  }
+  h2 .num{
+    flex:0 0 auto;width:34px;height:34px;border-radius:11px;
+    background:var(--accent);color:#fff;font-size:15px;font-weight:600;
+    display:flex;align-items:center;justify-content:center;
+  }
+  h3{font-size:17px;margin:30px 0 12px;color:var(--texte)}
+  p{margin:0 0 16px}
+  li{margin-bottom:8px}
+  ul,ol{padding-left:22px;margin:0 0 18px}
+  a{color:var(--accent-clair);text-decoration:none;border-bottom:1px solid rgba(74,163,255,.35)}
+  a:hover{border-bottom-color:var(--accent-clair)}
+  strong{color:#fff}
+
+  .carte{
+    background:var(--carte);border:1px solid var(--bord);border-radius:18px;
+    padding:24px;margin:24px 0;
+  }
+  .carte.pleine{background:var(--carte2)}
+  .carte h3{margin-top:0}
+
+  .grille{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));margin:24px 0}
+  .info{background:var(--carte);border:1px solid var(--bord);border-radius:16px;padding:18px}
+  .info .titre{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--doux);margin-bottom:8px}
+  .info .valeur{font-size:16px;font-weight:600;word-break:break-word}
+  .info .valeur.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;font-weight:500}
+
+  pre{
+    background:#0b0d11;border:1px solid var(--bord);border-radius:14px;
+    padding:18px 18px;overflow-x:auto;margin:16px 0;
+    font:13.5px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#dfe4ec;
+  }
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13.5px}
+  p code,li code{background:#0b0d11;border:1px solid var(--bord);border-radius:7px;padding:2px 7px;color:#cfe3ff}
+
+  .avis{border-radius:14px;padding:16px 18px;margin:20px 0;border:1px solid;display:flex;gap:14px;align-items:flex-start}
+  .avis .marque{flex:0 0 auto;width:10px;align-self:stretch;border-radius:6px}
+  .avis p:last-child{margin-bottom:0}
+  .avis.prudence{background:rgba(200,135,31,.09);border-color:rgba(200,135,31,.35)}
+  .avis.prudence .marque{background:var(--attention)}
+  .avis.danger{background:rgba(192,57,43,.1);border-color:rgba(192,57,43,.38)}
+  .avis.danger .marque{background:var(--danger)}
+  .avis.bon{background:rgba(47,158,107,.09);border-color:rgba(47,158,107,.35)}
+  .avis.bon .marque{background:var(--ok)}
+
+  .liste-check{list-style:none;padding:0;margin:20px 0}
+  .liste-check li{
+    background:var(--carte);border:1px solid var(--bord);border-radius:13px;
+    padding:14px 16px;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start;
+  }
+  .liste-check .case{
+    flex:0 0 auto;width:20px;height:20px;border-radius:7px;margin-top:2px;
+    border:2px solid var(--accent);background:transparent;
+  }
+
+  table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+  th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--bord)}
+  th{color:var(--doux);font-size:12px;letter-spacing:.09em;text-transform:uppercase;font-weight:600}
+  tr:last-child td{border-bottom:none}
+
+  footer{margin-top:72px;padding-top:28px;border-top:1px solid var(--bord);color:var(--doux);font-size:14px}
+
+  @media print{
+    body{background:#fff;color:#111}
+    .carte,.info,.liste-check li,pre{background:#fff;border-color:#ccc}
+    h1,h2,h3,strong,td{color:#111}
+    a{color:#1267B5}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <div class="etiquette">Guide d'installation</div>
+  <h1>Remplacer Windows 10 par Tiny10</h1>
+  <p>En gardant Arch Linux intact et le double démarrage fonctionnel. Écrire ce guide prend dix minutes de lecture ; le faire sans l'avoir lu peut coûter une partition.</p>
+</header>
+
+<h2><span class="num">1</span>Les trois choses à savoir d'abord</h2>
+
+<div class="grille">
+  <div class="info">
+    <div class="titre">C'est quoi</div>
+    <div class="valeur">Windows 10 23H1 allégé, modifié par NTDEV</div>
+  </div>
+  <div class="info">
+    <div class="titre">Poids du téléchargement</div>
+    <div class="valeur">3,67 Go</div>
+  </div>
+  <div class="info">
+    <div class="titre">Place nécessaire</div>
+    <div class="valeur">environ 20 Go</div>
+  </div>
+  <div class="info">
+    <div class="titre">Point sensible</div>
+    <div class="valeur">les pilotes ne s'installent pas seuls</div>
+  </div>
+</div>
+
+<p>Ce n'est pas une image Microsoft officielle. C'est Windows 10, mais élagué : pas de Microsoft Store, pas d'applis inutiles, télémétrie réduite, mises à jour désactivées par défaut. Tes programmes <code>.exe</code> fonctionnent normalement.</p>
+
+<div class="avis danger">
+  <div class="marque"></div>
+  <div>
+    <p><strong>Ta licence.</strong> Un Windows activé crée une licence liée <strong>au matériel</strong> de la machine, pas à l'installation. En réinstallant la <strong>même édition</strong>, il se réactive tout seul.</p>
+    <p>Donc, avant d'écraser : note ton édition dans Paramètres, Système, À propos. Puis compare-la avec celle de l'image sur la page du dépôt. Famille contre Pro, ça ne se réactive pas.</p>
+  </div>
+</div>
+
+<div class="avis prudence">
+  <div class="marque"></div>
+  <div>
+    <p><strong>Les pilotes, ton vrai piège.</strong> Sans Windows Update, rien ne s'installe automatiquement. Réseau, carte graphique, Wi-Fi, son : télécharge tout depuis Arch <em>avant</em> de commencer, et mets-le sur la clé USB.</p>
+    <p>Sinon tu te retrouves avec un Windows qui ne capte pas le réseau et donc qui ne peut rien télécharger. C'est l'erreur que tout le monde fait.</p>
+  </div>
+</div>
+
+<div class="avis prudence">
+  <div class="marque"></div>
+  <div>
+    <p><strong>Sauvegarde.</strong> Tes fichiers Windows sur un disque externe. Et si tu veux pouvoir revenir en arrière, fais une image de la partition avec Clonezilla — une fois écrasée, elle est perdue.</p>
+  </div>
+</div>
+
+<h2><span class="num">2</span>Télécharger l'image</h2>
+
+<p>Toujours depuis le dépôt de l'auteur, jamais depuis un site de téléchargement générique. Sur une image Windows modifiée, c'est exactement là qu'on attrape quelque chose.</p>
+
+<div class="carte">
+  <h3>Page du dépôt officiel</h3>
+  <p><a href="https://archive.org/details/tiny-10-NTDEV">archive.org/details/tiny-10-NTDEV</a></p>
+  <h3>Fichier à prendre — le plus récent en 64 bits</h3>
+  <p><a href="https://archive.org/download/tiny-10-NTDEV/tiny10%2023h1%20x64.iso">tiny10 23h1 x64.iso</a></p>
+  <p style="color:var(--doux);margin-bottom:0">Taille attendue : 3 945 988 096 octets.</p>
+</div>
+
+<p>Vérifie l'empreinte après téléchargement. Trente secondes, et ça garantit que le fichier n'a pas été modifié en route :</p>
+
+<pre>md5sum tiny10*.iso
+# doit afficher : b644e39cc724858d8c7cfebeaa5ff6a4</pre>
+
+<h2><span class="num">3</span>Noter les partitions avant de toucher à quoi que ce soit</h2>
+
+<p>C'est l'étape que tout le monde saute et qui coûte le plus cher.</p>
+
+<pre>lsblk -f
+sudo blkid</pre>
+
+<p>Repère et note :</p>
+
+<table>
+  <tr><th>Partition</th><th>Ce qu'on en fait</th></tr>
+  <tr><td>La NTFS de Windows (la grosse)</td><td>à supprimer</td></tr>
+  <tr><td>« Réservé au système » (16 à 100 Mo)</td><td>à supprimer</td></tr>
+  <tr><td>Récupération Windows (500 Mo à 1 Go)</td><td>à supprimer</td></tr>
+  <tr><td>La EFI, en FAT32, montée sur <code>/boot</code> ou <code>/efi</code></td><td><strong>ne jamais y toucher</strong></td></tr>
+  <tr><td>Les ext4 ou btrfs de Arch, le swap</td><td><strong>ne jamais y toucher</strong></td></tr>
+</table>
+
+<h3>Vérifie aussi que tu es en UEFI</h3>
+<pre>ls /sys/firmware/efi</pre>
+<p>Si la commande liste des dossiers, tu es en UEFI. Si le dossier n'existe pas, tu es en mode ancien et la suite ne s'applique pas telle quelle.</p>
+
+<h2><span class="num">4</span>La clé USB</h2>
+
+<div class="avis danger">
+  <div class="marque"></div>
+  <div><p><strong>N'utilise pas <code>dd</code>.</strong> Les ISO Windows écrites de cette façon ne démarrent pas. C'est la deuxième erreur classique.</p></div>
+</div>
+
+<p>La méthode sans souci, c'est Ventoy : tu l'installes une fois sur la clé, et ensuite tu copies simplement le fichier <code>.iso</code> dessus.</p>
+
+<pre>sudo pacman -S ventoy          # ou : yay -S ventoy
+lsblk                          # repère ta clé, par exemple /dev/sdc
+sudo ventoy2disk /dev/sdc      # installe Ventoy sur la clé — EFFACE la clé
+sudo mount /dev/sdc1 /mnt/cle
+sudo cp tiny10*.iso /mnt/cle/
+sync
+sudo umount /mnt/cle</pre>
+
+<p>Autres possibilités : WoeUSB pour une clé classique, ou Rufus si tu as accès à un PC sous Windows.</p>
+
+<h2><span class="num">5</span>Démarrer sur la clé et installer</h2>
+
+<ol>
+  <li>Redémarre, ouvre le menu de démarrage (F12, F2, F10 ou Échap selon la machine).</li>
+  <li>Choisis la clé <strong>en mode UEFI</strong>, pas en mode hérité.</li>
+  <li>À l'écran d'installation, prends <strong>Personnalisée</strong>, jamais « Mettre à niveau ».</li>
+</ol>
+
+<p>Sur l'écran des partitions, supprime dans cet ordre : la partition « Réservé au système », la NTFS principale, la partition de récupération. Tu obtiens un espace non alloué.</p>
+
+<p>Sélectionne cet espace non alloué, clique Suivant. Windows crée ce qu'il lui faut et s'installe.</p>
+
+<div class="avis prudence">
+  <div class="marque"></div>
+  <div><p>Si Windows refuse en parlant de MBR ou de GPT, c'est que tu as démarré la clé en mode hérité. Recommence à l'étape 5, en choisissant bien l'entrée UEFI.</p></div>
+</div>
+
+<h2><span class="num">6</span>Remettre Arch dans le menu de démarrage</h2>
+
+<p>Après l'installation, Windows se met en premier et démarre à ta place. C'est normal, il suffit de le corriger.</p>
+
+<p>Redémarre, ouvre le menu de démarrage du firmware, choisis l'entrée Linux. Une fois dans Arch :</p>
+
+<pre>sudo os-prober
+sudo grub-mkconfig -o /boot/grub/grub.cfg</pre>
+
+<p>L'entrée Windows revient dans GRUB. Si <code>os-prober</code> ne trouve rien, vérifie cette ligne dans <code>/etc/default/grub</code> :</p>
+
+<pre>GRUB_DISABLE_OS_PROBER=false</pre>
+
+<div class="avis prudence">
+  <div class="marque"></div>
+  <div><p>Si le firmware n'affiche plus du tout d'entrée Linux : démarre sur une clé Arch en mode live, monte ta racine, entre dedans avec <code>arch-chroot</code>, puis réinstalle GRUB et régénère le fichier.</p></div>
+</div>
+
+<h2><span class="num">7</span>Premier démarrage de Tiny10</h2>
+
+<ol>
+  <li><strong>Activer Windows.</strong> Paramètres, Mise à jour et sécurité, Activation. Avec une licence liée au matériel, ça se fait seul.</li>
+  <li><strong>Les pilotes</strong>, dans cet ordre : chipset, carte graphique, réseau, son. Utilise ce que tu as préparé à l'étape 1.</li>
+  <li><strong>Remettre les mises à jour</strong> — facultatif mais recommandé. Touche Windows + R, tape <code>services.msc</code>, cherche « Windows Update », mets le démarrage en Automatique, puis lance une recherche. Sans ça, aucun correctif de sécurité n'arrive.</li>
+  <li><strong>Pas de Microsoft Store</strong> dans l'image : tes programmes s'installent en <code>.exe</code> classique.</li>
+</ol>
+
+<h2><span class="num">8</span>Si Tiny10 ne te convient pas</h2>
+
+<ul>
+  <li><strong>Windows 10 officiel allégé à la main</strong> : tu installes l'ISO Microsoft normale, puis tu retires applis et télémétrie avec un script. Tu gardes les mises à jour automatiques, c'est plus sain sur la durée.</li>
+  <li><strong>Restauration Clonezilla</strong> : tu remets ta partition dans l'état d'avant.</li>
+</ul>
+
+<h2>À vérifier avant de lancer</h2>
+
+<ul class="liste-check">
+  <li><span class="case"></span><div>Mes fichiers Windows sont copiés ailleurs</div></li>
+  <li><span class="case"></span><div>J'ai noté mon édition de Windows (Famille ou Pro)</div></li>
+  <li><span class="case"></span><div>J'ai téléchargé les pilotes depuis Arch, sur la clé</div></li>
+  <li><span class="case"></span><div>J'ai noté mes partitions avec <code>lsblk -f</code></div></li>
+  <li><span class="case"></span><div>Je sais repérer la partition EFI — je n'y toucherai pas</div></li>
+  <li><span class="case"></span><div>L'empreinte md5 du fichier téléchargé est la bonne</div></li>
+  <li><span class="case"></span><div>Je sais démarrer la clé en mode UEFI</div></li>
+</ul>
+
+<footer>
+  Empreinte de référence — tiny10 23h1 x64.iso : <code>b644e39cc724858d8c7cfebeaa5ff6a4</code><br>
+  Source : dépôt de NTDEV sur archive.org.
+</footer>
+
+</div>
+</body>
+</html>
