@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Installer un Windows 10 propre</title>
+<style>
+  :root{
+    --fond:#0f1115; --carte:#171a21; --carte2:#1d2129; --bord:#262b35;
+    --texte:#e7e9ee; --doux:#9aa3b2; --accent:#1267B5; --accent-clair:#4aa3ff;
+    --attention:#c8871f; --danger:#c0392b; --ok:#2f9e6b;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--fond); color:var(--texte);
+    font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{max-width:880px;margin:0 auto;padding:56px 24px 96px}
+
+  header{border-bottom:1px solid var(--bord);padding-bottom:32px;margin-bottom:40px}
+  .etiquette{
+    display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--accent-clair);background:rgba(18,103,181,.14);
+    border:1px solid rgba(74,163,255,.28);border-radius:999px;padding:6px 14px;margin-bottom:20px;
+  }
+  h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 16px;letter-spacing:-.02em}
+  header p{color:var(--doux);font-size:17px;margin:0;max-width:62ch}
+
+  h2{
+    font-size:22px;margin:56px 0 20px;letter-spacing:-.01em;
+    display:flex;align-items:center;gap:14px;
+  }
+  h2 .num{
+    flex:0 0 auto;width:34px;height:34px;border-radius:11px;
+    background:var(--accent);color:#fff;font-size:15px;font-weight:600;
+    display:flex;align-items:center;justify-content:center;
+  }
+  h3{font-size:17px;margin:30px 0 12px;color:var(--texte)}
+  p{margin:0 0 16px}
+  li{margin-bottom:8px}
+  ul,ol{padding-left:22px;margin:0 0 18px}
+  a{color:var(--accent-clair);text-decoration:none;border-bottom:1px solid rgba(74,163,255,.35)}
+  a:hover{border-bottom-color:var(--accent-clair)}
+  strong{color:#fff}
+
+  .carte{
+    background:var(--carte);border:1px solid var(--bord);border-radius:18px;
+    padding:24px;margin:24px 0;
+  }
+  .carte.pleine{background:var(--carte2)}
+  .carte h3{margin-top:0}
+
+  .grille{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));margin:24px 0}
+  .info{background:var(--carte);border:1px solid var(--bord);border-radius:16px;padding:18px}
+  .info .titre{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--doux);margin-bottom:8px}
+  .info .valeur{font-size:16px;font-weight:600;word-break:break-word}
+  .info .valeur.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;font-weight:500}
+
+  pre{
+    background:#0b0d11;border:1px solid var(--bord);border-radius:14px;
+    padding:18px 18px;overflow-x:auto;margin:16px 0;
+    font:13.5px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#dfe4ec;
+  }
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13.5px}
+  p code,li code{background:#0b0d11;border:1px solid var(--bord);border-radius:7px;padding:2px 7px;color:#cfe3ff}
+
+  .avis{border-radius:14px;padding:16px 18px;margin:20px 0;border:1px solid;display:flex;gap:14px;align-items:flex-start}
+  .avis .marque{flex:0 0 auto;width:10px;align-self:stretch;border-radius:6px}
+  .avis p:last-child{margin-bottom:0}
+  .avis.prudence{background:rgba(200,135,31,.09);border-color:rgba(200,135,31,.35)}
+  .avis.prudence .marque{background:var(--attention)}
+  .avis.danger{background:rgba(192,57,43,.1);border-color:rgba(192,57,43,.38)}
+  .avis.danger .marque{background:var(--danger)}
+  .avis.bon{background:rgba(47,158,107,.09);border-color:rgba(47,158,107,.35)}
+  .avis.bon .marque{background:var(--ok)}
+
+  .liste-check{list-style:none;padding:0;margin:20px 0}
+  .liste-check li{
+    background:var(--carte);border:1px solid var(--bord);border-radius:13px;
+    padding:14px 16px;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start;
+  }
+  .liste-check .case{
+    flex:0 0 auto;width:20px;height:20px;border-radius:7px;margin-top:2px;
+    border:2px solid var(--accent);background:transparent;
+  }
+
+  table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+  th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--bord)}
+  th{color:var(--doux);font-size:12px;letter-spacing:.09em;text-transform:uppercase;font-weight:600}
+  tr:last-child td{border-bottom:none}
+
+  footer{margin-top:72px;padding-top:28px;border-top:1px solid var(--bord);color:var(--doux);font-size:14px}
+
+  @media print{
+    body{background:#fff;color:#111}
+    .carte,.info,.liste-check li,pre{background:#fff;border-color:#ccc}
+    h1,h2,h3,strong,td{color:#111}
+    a{color:#1267B5}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <div class="etiquette">Guide d'installation</div>
+  <h1>Installer un Windows 10 propre</h1>
+  <p>Remplacer un Windows fatigué par une installation officielle, neuve, activée — et garder Arch dans le menu de démarrage. Objectif : un Windows qui sert à ce que Arch ne sait pas faire, Roblox en tête.</p>
+</header>
+
+<h2><span class="num">1</span>Ce qui change par rapport à Tiny10</h2>
+
+<div class="grille">
+  <div class="info"><div class="titre">Source</div><div class="valeur">ISO officielle Microsoft</div></div>
+  <div class="info"><div class="titre">Activation</div><div class="valeur">automatique, ton Pro suit</div></div>
+  <div class="info"><div class="titre">Mises à jour</div><div class="valeur">elles fonctionnent normalement</div></div>
+  <div class="info"><div class="titre">Téléchargement</div><div class="valeur">environ 5,8 Go</div></div>
+</div>
+
+<div class="avis bon">
+  <div class="marque"></div>
+  <div><p><strong>Ton activation suit.</strong> Ton Windows 10 Pro actuel est activé, et sur Windows 10 l'activation est liée <strong>au matériel</strong> de la machine. En réinstallant la même édition sur le même PC, il se réactive tout seul, sans rien saisir. C'est exactement ce que Tiny10 ne permettait pas, puisqu'il est basé sur LTSC.</p></div>
+</div>
+
+<div class="avis prudence">
+  <div class="marque"></div>
+  <div>
+    <p><strong>Windows 10 n'a plus de mises à jour de sécurité gratuites</strong> depuis octobre 2025. Pour du jeu et un usage courant, ça reste parfaitement utilisable — mais garde en tête que ce n'est plus un système maintenu.</p>
+    <p>Quant à Windows 11 : il ne s'installera pas officiellement sur cette machine (mémoire et processeur trop anciens). Windows 10 est le bon choix ici.</p>
+  </div>
+</div>
+
+<h2><span class="num">2</span>Télécharger l'ISO officielle</h2>
+
+<p>Une astuce qui vaut la peine d'être connue : depuis <strong>Arch ou ton Mac</strong>, la page de Microsoft propose directement le fichier ISO. Depuis Windows, la même page ne propose que l'outil de création, qui ne sait pas sortir un ISO.</p>
+
+<div class="carte">
+  <h3>Page officielle à ouvrir depuis Arch</h3>
+  <p><a href="https://www.microsoft.com/fr-fr/software-download/windows10ISO">microsoft.com/fr-fr/software-download/windows10ISO</a></p>
+  <p>Choisis : Windows 10, version 22H2, <strong>64 bits</strong>, français. Compte environ 5,8 Go.</p>
+  <p style="margin-bottom:0;color:var(--doux)">Si la page te propose l'outil de création au lieu de l'ISO, c'est que ton navigateur se fait passer pour Windows : ouvre-la depuis Arch, ou depuis le Mac.</p>
+</div>
+
+<div class="avis danger">
+  <div class="marque"></div>
+  <div><p><strong>N'utilise que cette source.</strong> Les ISO Windows qui traînent sur les sites de téléchargement sont régulièrement modifiées. Le fichier officiel, c'est celui-là, et rien d'autre.</p></div>
+</div>
+
+<h2><span class="num">3</span>Avant d'écraser : sauvegarde et pilotes</h2>
+
+<p><strong>La carte graphique d'abord.</strong> C'est elle qui fait tourner Roblox, et sans pilote tu te retrouves avec un affichage lent et des jeux injouables. Télécharge-la <em>avant</em>, depuis Arch, ainsi que le chipset, le réseau et le son. Tu les mettras sur la clé USB.</p>
+
+<p>Sauvegarde ensuite tout ce que tu veux garder de ton Windows actuel sur un disque externe. Et si tu veux pouvoir revenir en arrière, fais une image de la partition avec Clonezilla.</p>
+
+<h2><span class="num">4</span>Repérer ses partitions</h2>
+
+<pre>lsblk -f
+sudo blkid</pre>
+
+<table>
+  <tr><th>Partition</th><th>Ce qu'on en fait</th></tr>
+  <tr><td>La NTFS de Windows</td><td>à supprimer</td></tr>
+  <tr><td>« Réservé au système » (16 à 100 Mo)</td><td>à supprimer</td></tr>
+  <tr><td>Récupération Windows (500 Mo à 1 Go)</td><td>à supprimer</td></tr>
+  <tr><td>La EFI, en FAT32</td><td><strong>ne jamais y toucher</strong></td></tr>
+  <tr><td>Les partitions de Arch, le swap</td><td><strong>ne jamais y toucher</strong></td></tr>
+</table>
+
+<h2><span class="num">5</span>La clé USB</h2>
+
+<p>Ventoy, comme toujours : tu l'installes une fois, puis tu copies simplement le fichier ISO dessus.</p>
+
+<pre>sudo pacman -S ventoy          # ou : yay -S ventoy
+lsblk                          # repère ta clé, par exemple /dev/sdc
+sudo ventoy2disk /dev/sdc      # installe Ventoy sur la clé — EFFACE la clé
+sudo mount /dev/sdc1 /mnt/cle
+sudo cp Win10*.iso /mnt/cle/
+sudo cp -r pilotes /mnt/cle/   # ce que tu as téléchargé à l'étape 3
+sync
+sudo umount /mnt/cle</pre>
+
+<div class="avis danger">
+  <div class="marque"></div>
+  <div><p><strong>Pas de <code>dd</code>.</strong> Une ISO Windows écrite ainsi ne démarre pas. Et pas de Rufus depuis Arch non plus : Ventoy est la voie simple.</p></div>
+</div>
+
+<h2><span class="num">6</span>Installer</h2>
+
+<ol>
+  <li>Redémarre, ouvre le menu de démarrage (F12, F2, F10 ou Échap), choisis la clé <strong>en mode UEFI</strong>.</li>
+  <li>Prends <strong>Personnalisée</strong>, jamais « Mettre à niveau ».</li>
+  <li>Supprime la partition « Réservé au système », la NTFS principale, puis la partition de récupération.</li>
+  <li>Sélectionne l'espace non alloué, clique Suivant.</li>
+</ol>
+
+<div class="avis prudence">
+  <div class="marque"></div>
+  <div><p>Si Windows parle de MBR ou de GPT, tu as démarré la clé en mode hérité. Recommence en choisissant l'entrée UEFI.</p></div>
+</div>
+
+<h2><span class="num">7</span>Après l'installation</h2>
+
+<ol>
+  <li><strong>Vérifie l'activation</strong> : Paramètres, Mise à jour et sécurité, Activation. Ça doit indiquer que Windows est activé, tout seul.</li>
+  <li><strong>Les pilotes</strong> : chipset, carte graphique, réseau, son. Redémarre entre les étapes si on te le demande.</li>
+  <li><strong>Les mises à jour Windows</strong> : lance-les, elles fonctionnent normalement sur une ISO officielle.</li>
+  <li><strong>Roblox</strong> : va sur roblox.com et prends l'installateur. Il réclame sa propre mise à jour au premier lancement, c'est normal.</li>
+</ol>
+
+<h2><span class="num">8</span>Remettre Arch dans le menu de démarrage</h2>
+
+<p>Après l'installation, Windows passe en premier et démarre à ta place. Redémarre, choisis l'entrée Linux dans le menu du firmware, puis dans Arch :</p>
+
+<pre>sudo os-prober
+sudo grub-mkconfig -o /boot/grub/grub.cfg</pre>
+
+<p>L'entrée Windows revient dans GRUB. Si <code>os-prober</code> ne trouve rien, vérifie cette ligne dans <code>/etc/default/grub</code> :</p>
+
+<pre>GRUB_DISABLE_OS_PROBER=false</pre>
+
+<h2>À vérifier avant de commencer</h2>
+
+<ul class="liste-check">
+  <li><span class="case"></span><div>Mes fichiers Windows sont copiés ailleurs</div></li>
+  <li><span class="case"></span><div>Le pilote de la carte graphique est téléchargé, sur la clé</div></li>
+  <li><span class="case"></span><div>L'ISO vient bien de microsoft.com</div></li>
+  <li><span class="case"></span><div>J'ai repéré mes partitions, et je sais reconnaître la EFI</div></li>
+  <li><span class="case"></span><div>Je sais démarrer la clé en mode UEFI</div></li>
+  <li><span class="case"></span><div>Mon Windows actuel est bien activé (ça garantit que le nouveau le sera)</div></li>
+</ul>
+
+<footer>
+  Installation officielle Windows 10 Pro. Ton activation suit le matériel : même édition, même machine, réactivation automatique.
+</footer>
+
+</div>
+</body>
+</html>
