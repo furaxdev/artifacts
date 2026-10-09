@@ -135,8 +135,9 @@
 <div class="avis danger">
   <div class="marque"></div>
   <div>
-    <p><strong>Ta licence.</strong> Un Windows activé crée une licence liée <strong>au matériel</strong> de la machine, pas à l'installation. En réinstallant la <strong>même édition</strong>, il se réactive tout seul.</p>
-    <p>Donc, avant d'écraser : note ton édition dans Paramètres, Système, À propos. Puis compare-la avec celle de l'image sur la page du dépôt. Famille contre Pro, ça ne se réactive pas.</p>
+    <p><strong>Tiny10 est basé sur Windows 10 LTSC, et ça change tout pour l'activation.</strong> LTSC est une édition à licence en volume. Ta licence actuelle, qu'elle soit Famille, Pro ou Entreprise, <strong>ne s'y reportera pas</strong>.</p>
+    <p>Traduction concrète : Tiny10 s'installera et tournera, mais restera <strong>non activé</strong> — filigrane en bas à droite, personnalisation bloquée. Tout le reste fonctionne : programmes, jeux, pilotes, réseau.</p>
+    <p>C'est le compromis de cette image. Si l'activation compte pour toi, voir la section 8 avant de te lancer.</p>
   </div>
 </div>
 
@@ -251,18 +252,34 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg</pre>
 <h2><span class="num">7</span>Premier démarrage de Tiny10</h2>
 
 <ol>
-  <li><strong>Activer Windows.</strong> Paramètres, Mise à jour et sécurité, Activation. Avec une licence liée au matériel, ça se fait seul.</li>
+  <li><strong>Activation.</strong> Paramètres, Mise à jour et sécurité, Activation. Attends-toi à voir « Windows n'est pas activé » : c'est normal avec LTSC, et ça n'empêche pas d'utiliser la machine.</li>
   <li><strong>Les pilotes</strong>, dans cet ordre : chipset, carte graphique, réseau, son. Utilise ce que tu as préparé à l'étape 1.</li>
   <li><strong>Remettre les mises à jour</strong> — facultatif mais recommandé. Touche Windows + R, tape <code>services.msc</code>, cherche « Windows Update », mets le démarrage en Automatique, puis lance une recherche. Sans ça, aucun correctif de sécurité n'arrive.</li>
   <li><strong>Pas de Microsoft Store</strong> dans l'image : tes programmes s'installent en <code>.exe</code> classique.</li>
 </ol>
 
-<h2><span class="num">8</span>Si Tiny10 ne te convient pas</h2>
+<h2><span class="num">8</span>Le choix, en clair</h2>
 
-<ul>
-  <li><strong>Windows 10 officiel allégé à la main</strong> : tu installes l'ISO Microsoft normale, puis tu retires applis et télémétrie avec un script. Tu gardes les mises à jour automatiques, c'est plus sain sur la durée.</li>
-  <li><strong>Restauration Clonezilla</strong> : tu remets ta partition dans l'état d'avant.</li>
-</ul>
+<table>
+  <tr><th>Ton besoin</th><th>Ce qu'il faut faire</th></tr>
+  <tr>
+    <td>Un Windows léger, tant pis s'il n'est pas activé</td>
+    <td><strong>Tiny10.</strong> Filigrane et personnalisation bloquée, mais tout le reste marche. C'est le choix de la simplicité.</td>
+  </tr>
+  <tr>
+    <td>Un Windows léger <strong>et</strong> activé, avec les mises à jour</td>
+    <td><strong>ISO Microsoft officielle</strong> de ton édition, puis un script qui retire applis et télémétrie. Ta licence reste valable et les correctifs de sécurité continuent d'arriver.</td>
+  </tr>
+  <tr>
+    <td>Faire demi-tour</td>
+    <td><strong>Image Clonezilla</strong> faite avant, restaurée ensuite.</td>
+  </tr>
+</table>
+
+<div class="avis bon">
+  <div class="marque"></div>
+  <div><p>Dans les deux premiers cas, l'étape 0 reste la même : note ton édition et tes pilotes, sauvegarde tes fichiers.</p></div>
+</div>
 
 <h2>À vérifier avant de lancer</h2>
 
