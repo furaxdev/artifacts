@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Un Windows 10 neuf, deja a ta main</title>
+<style>
+  :root{
+    --fond:#0f1115; --carte:#171a21; --carte2:#1d2129; --bord:#262b35;
+    --texte:#e7e9ee; --doux:#9aa3b2; --accent:#1267B5; --accent-clair:#4aa3ff;
+    --attention:#c8871f; --danger:#c0392b; --ok:#2f9e6b;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--fond); color:var(--texte);
+    font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{max-width:880px;margin:0 auto;padding:56px 24px 96px}
+
+  header{border-bottom:1px solid var(--bord);padding-bottom:32px;margin-bottom:40px}
+  .etiquette{
+    display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--accent-clair);background:rgba(18,103,181,.14);
+    border:1px solid rgba(74,163,255,.28);border-radius:999px;padding:6px 14px;margin-bottom:20px;
+  }
+  h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 16px;letter-spacing:-.02em}
+  header p{color:var(--doux);font-size:17px;margin:0;max-width:62ch}
+
+  h2{
+    font-size:22px;margin:56px 0 20px;letter-spacing:-.01em;
+    display:flex;align-items:center;gap:14px;
+  }
+  h2 .num{
+    flex:0 0 auto;width:34px;height:34px;border-radius:11px;
+    background:var(--accent);color:#fff;font-size:15px;font-weight:600;
+    display:flex;align-items:center;justify-content:center;
+  }
+  h3{font-size:17px;margin:30px 0 12px;color:var(--texte)}
+  p{margin:0 0 16px}
+  li{margin-bottom:8px}
+  ul,ol{padding-left:22px;margin:0 0 18px}
+  a{color:var(--accent-clair);text-decoration:none;border-bottom:1px solid rgba(74,163,255,.35)}
+  a:hover{border-bottom-color:var(--accent-clair)}
+  strong{color:#fff}
+
+  .carte{
+    background:var(--carte);border:1px solid var(--bord);border-radius:18px;
+    padding:24px;margin:24px 0;
+  }
+  .carte.pleine{background:var(--carte2)}
+  .carte h3{margin-top:0}
+
+  .grille{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));margin:24px 0}
+  .info{background:var(--carte);border:1px solid var(--bord);border-radius:16px;padding:18px}
+  .info .titre{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--doux);margin-bottom:8px}
+  .info .valeur{font-size:16px;font-weight:600;word-break:break-word}
+  .info .valeur.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;font-weight:500}
+
+  pre{
+    background:#0b0d11;border:1px solid var(--bord);border-radius:14px;
+    padding:18px 18px;overflow-x:auto;margin:16px 0;
+    font:13.5px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#dfe4ec;
+  }
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13.5px}
+  p code,li code{background:#0b0d11;border:1px solid var(--bord);border-radius:7px;padding:2px 7px;color:#cfe3ff}
+
+  .avis{border-radius:14px;padding:16px 18px;margin:20px 0;border:1px solid;display:flex;gap:14px;align-items:flex-start}
+  .avis .marque{flex:0 0 auto;width:10px;align-self:stretch;border-radius:6px}
+  .avis p:last-child{margin-bottom:0}
+  .avis.prudence{background:rgba(200,135,31,.09);border-color:rgba(200,135,31,.35)}
+  .avis.prudence .marque{background:var(--attention)}
+  .avis.danger{background:rgba(192,57,43,.1);border-color:rgba(192,57,43,.38)}
+  .avis.danger .marque{background:var(--danger)}
+  .avis.bon{background:rgba(47,158,107,.09);border-color:rgba(47,158,107,.35)}
+  .avis.bon .marque{background:var(--ok)}
+
+  .liste-check{list-style:none;padding:0;margin:20px 0}
+  .liste-check li{
+    background:var(--carte);border:1px solid var(--bord);border-radius:13px;
+    padding:14px 16px;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start;
+  }
+  .liste-check .case{
+    flex:0 0 auto;width:20px;height:20px;border-radius:7px;margin-top:2px;
+    border:2px solid var(--accent);background:transparent;
+  }
+
+  table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+  th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--bord)}
+  th{color:var(--doux);font-size:12px;letter-spacing:.09em;text-transform:uppercase;font-weight:600}
+  tr:last-child td{border-bottom:none}
+
+  footer{margin-top:72px;padding-top:28px;border-top:1px solid var(--bord);color:var(--doux);font-size:14px}
+
+  @media print{
+    body{background:#fff;color:#111}
+    .carte,.info,.liste-check li,pre{background:#fff;border-color:#ccc}
+    h1,h2,h3,strong,td{color:#111}
+    a{color:#1267B5}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <div class="etiquette">Guide d'installation</div>
+  <h1>Un Windows 10 neuf, déjà à ta main</h1>
+  <p>Réinstaller proprement, en préparant fond d'écran, curseurs et thème sombre <em>avant</em> le premier démarrage, pour ne rien avoir à refaire ensuite. Deux méthodes, dont une qui ne touche pas à l'image du tout.</p>
+</header>
+
+<h2><span class="num">1</span>Choisis ta route</h2>
+
+<table>
+  <tr><th>Route</th><th>Comment</th><th>Risque</th></tr>
+  <tr>
+    <td><strong>A — réponse automatique</strong></td>
+    <td>ISO officielle intacte + Ventoy + un fichier <code>autounattend.xml</code> à la racine de la clé, qui lance ton script au premier démarrage.</td>
+    <td>faible. Rien n'est modifié, on ajoute des fichiers à côté.</td>
+  </tr>
+  <tr>
+    <td><strong>B — image retouchée</strong></td>
+    <td>Modifier <code>install.wim</code> (fond, curseurs, ruche de l'utilisateur par défaut) puis reconstruire l'ISO.</td>
+    <td>élevé. Une erreur et l'ISO ne démarre plus. Long.</td>
+  </tr>
+</table>
+
+<div class="avis bon">
+  <div class="marque"></div>
+  <div><p><strong>Le résultat final est identique.</strong> Dans les deux cas, ton fond d'écran, tes curseurs et le thème sombre sont en place au premier démarrage, sans que tu touches à rien. La route A y arrive simplement sans risquer ton ISO.</p></div>
+</div>
+
+<h2><span class="num">2</span>Route A — la réponse automatique</h2>
+
+<p>Windows Setup cherche, sur toutes les clés branchées, un fichier nommé <code>autounattend.xml</code> à la racine. Si il le trouve, il l'applique tout seul. C'est fait pour les administrateurs, et ça marche exactement pareil pour toi.</p>
+
+<h3>Ce qu'on met sur la clé</h3>
+
+<pre>
+CLE_USB/
+  Win10_22H2_French_x64.iso      l'ISO officielle, telle quelle
+  autounattend.xml               la reponse automatique
+  perso/
+    fond.jpg                     ton fond d'ecran
+    curseurs/                    tes .cur/.ani
+    theme.reg                    theme sombre, fond, curseurs
+    installer.cmd                ce qui s'execute au premier demarrage
+</pre>
+
+<h3>Le fichier autounattend.xml</h3>
+
+<p>Il fait deux choses : il saute les questions du premier démarrage, et il lance ton script une fois la session ouverte.</p>
+
+<pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;unattend xmlns=&quot;urn:schemas-microsoft-com:unattend&quot;&gt;
+  &lt;settings pass=&quot;oobeSystem&quot;&gt;
+    &lt;component name=&quot;Microsoft-Windows-Shell-Setup&quot;
+               processorArchitecture=&quot;amd64&quot;
+               publicKeyToken=&quot;31bf3856ad364e35&quot;
+               language=&quot;neutral&quot; versionScope=&quot;nonSxS&quot;
+               xmlns:wcm=&quot;http://schemas.microsoft.com/WMIConfig/2002/State&quot;&gt;
+      &lt;OOBE&gt;
+        &lt;HideEULAPage&gt;true&lt;/HideEULAPage&gt;
+        &lt;HideLocalAccountScreen&gt;true&lt;/HideLocalAccountScreen&gt;
+        &lt;HideOEMRegistrationScreen&gt;true&lt;/HideOEMRegistrationScreen&gt;
+        &lt;HideOnlineAccountScreens&gt;true&lt;/HideOnlineAccountScreens&gt;
+        &lt;HideWirelessSetupInOOBE&gt;true&lt;/HideWirelessSetupInOOBE&gt;
+        &lt;ProtectYourPC&gt;3&lt;/ProtectYourPC&gt;
+      &lt;/OOBE&gt;
+      &lt;FirstLogonCommands&gt;
+        &lt;SynchronousCommand wcm:action=&quot;add&quot;&gt;
+          &lt;Order&gt;1&lt;/Order&gt;
+          &lt;Description&gt;Personnalisation&lt;/Description&gt;
+          &lt;CommandLine&gt;cmd /c for %d in (D E F G H I J) do if exist %d:\perso\installer.cmd %d:\perso\installer.cmd&lt;/CommandLine&gt;
+        &lt;/SynchronousCommand&gt;
+      &lt;/FirstLogonCommands&gt;
+    &lt;/component&gt;
+  &lt;/settings&gt;
+&lt;/unattend&gt;</pre>
+
+<p>La ligne de commande cherche ta clé parmi les lettres de lecteur possibles : elle ne sera pas forcément <code>D:</code> selon la machine.</p>
+
+<h3>Le script de personnalisation</h3>
+
+<pre>@echo off
+set PERSO=%~dp0
+set DEST=%SystemRoot%\Web\Wallpaper\Perso
+
+mkdir &quot;%DEST%&quot; 2&gt;nul
+copy /y &quot;%PERSO%fond.jpg&quot; &quot;%DEST%\fond.jpg&quot; &gt;nul
+
+mkdir &quot;%SystemRoot%\Cursors\Perso&quot; 2&gt;nul
+copy /y &quot;%PERSO%curseurs\*.*&quot; &quot;%SystemRoot%\Cursors\Perso\&quot; &gt;nul
+
+reg import &quot;%PERSO%theme.reg&quot;
+
+:: on relance l&#x27;explorateur pour que le fond s&#x27;applique tout de suite
+taskkill /f /im explorer.exe &gt;nul 2&gt;&amp;1
+start explorer.exe</pre>
+
+<h3>Le fichier de registre</h3>
+
+<p>Trois réglages, et c'est tout ce qu'il faut pour ce que tu demandes. Les chemins sont ceux de Windows : si tu copies le fond ailleurs, adapte la ligne <code>Wallpaper</code>.</p>
+
+<pre>Windows Registry Editor Version 5.00
+
+; --- theme sombre par defaut ---
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize]
+&quot;AppsUseLightTheme&quot;=dword:00000000
+&quot;SystemUsesLightTheme&quot;=dword:00000000
+
+; --- fond d&#x27;ecran (10 = remplir l&#x27;ecran) ---
+[HKEY_CURRENT_USER\Control Panel\Desktop]
+&quot;Wallpaper&quot;=&quot;C:\\Windows\\Web\\Wallpaper\\Perso\\fond.jpg&quot;
+&quot;WallpaperStyle&quot;=&quot;10&quot;
+&quot;TileWallpaper&quot;=&quot;0&quot;
+
+; --- curseurs personnalises ---
+[HKEY_CURRENT_USER\Control Panel\Cursors]
+&quot;Arrow&quot;=&quot;%SystemRoot%\\Cursors\\Perso\\normal.cur&quot;
+&quot;Help&quot;=&quot;%SystemRoot%\\Cursors\\Perso\\aide.cur&quot;
+&quot;AppStarting&quot;=&quot;%SystemRoot%\\Cursors\\Perso\\travail.ani&quot;
+&quot;Wait&quot;=&quot;%SystemRoot%\\Cursors\\Perso\\attente.ani&quot;
+&quot;IBeam&quot;=&quot;%SystemRoot%\\Cursors\\Perso\\texte.cur&quot;
+&quot;Crosshair&quot;=&quot;%SystemRoot%\\Cursors\\Perso\\precis.cur&quot;
+&quot;Hand&quot;=&quot;%SystemRoot%\\Cursors\\Perso\\main.cur&quot;
+&quot;No&quot;=&quot;%SystemRoot%\\Cursors\\Perso\\interdit.cur&quot;
+&quot;SizeNS&quot;=&quot;%SystemRoot%\\Cursors\\Perso\\vertical.cur&quot;
+&quot;SizeWE&quot;=&quot;%SystemRoot%\\Cursors\\Perso\\horizontal.cur&quot;
+&quot;SizeNWSE&quot;=&quot;%SystemRoot%\\Cursors\\Perso\\diag1.cur&quot;
+&quot;SizeNESW&quot;=&quot;%SystemRoot%\\Cursors\\Perso\\diag2.cur&quot;
+&quot;SizeAll&quot;=&quot;%SystemRoot%\\Cursors\\Perso\\deplacer.cur&quot;</pre>
+
+<p>Les noms de fichiers <code>.cur</code> et <code>.ani</code> doivent correspondre à ce que tu mets dans le dossier <code>curseurs</code>. Le registre applique aux sessions suivantes ; le script relance l'explorateur pour que ce soit immédiat.</p>
+
+<div class="avis prudence">
+  <div class="marque"></div>
+  <div><p>Dans un fichier <code>.reg</code>, un antislash se double. Les lignes ci-dessus sont correctes pour un fichier <code>.reg</code> — copie-les telles quelles.</p></div>
+</div>
+
+<h2><span class="num">3</span>Route B — retoucher l'image</h2>
+
+<p>C'est ce que tu décrivais : modifier <code>install.wim</code> pour que tout soit cuit dans l'installation. C'est faisable depuis Arch, avec trois outils.</p>
+
+<pre>sudo pacman -S wimlib libisoburn chntpw
+# wimlib   : lire et modifier install.wim
+# xorriso  : reconstruire l&#x27;ISO (paquet libisoburn)
+# chntpw   : editer une ruche de registre Windows</pre>
+
+<h3>1. Sortir le contenu de l'ISO</h3>
+
+<pre>mkdir -p ~/win/iso
+bsdtar -xf ~/Win10.iso -C ~/win/iso
+ls ~/win/iso/sources/install.wim
+# si tu vois install.swm a la place, l&#x27;image est decoupee : prendre l&#x27;ISO 64 bits
+# officielle non modifiee, elle contient un install.wim d&#x27;un seul morceau</pre>
+
+<h3>2. Regarder les editions disponibles</h3>
+
+<pre>wimlib-imagex info ~/win/iso/sources/install.wim
+# repere l&#x27;index de Windows 10 Pro, par exemple 6</pre>
+
+<h3>3. Ajouter tes fichiers dans l'image</h3>
+
+<pre>sudo wimlib-imagex update ~/win/iso/sources/install.wim 6 \
+  --command=&quot;add ~/perso/fond.jpg /Windows/Web/Wallpaper/Perso/fond.jpg&quot; \
+  --command=&quot;add ~/perso/curseurs /Windows/Cursors/Perso&quot;</pre>
+
+<h3>4. Modifier la ruche de l'utilisateur par défaut</h3>
+
+<p>C'est la partie maligne : les réglages de thème, de fond et de curseurs sont des réglages <strong>par utilisateur</strong>. Les écrire dans le profil par défaut fait qu'ils s'appliquent à tout nouveau compte, donc au tien dès la première ouverture de session.</p>
+
+<pre>wimlib-imagex extract ~/win/iso/sources/install.wim 6 \
+  --dest-dir=/tmp/hive &quot;/Users/Default/NTUSER.DAT&quot;
+
+sudo chntpw -e /tmp/hive/NTUSER.DAT
+# dans l&#x27;invite :
+#   cd Software\Microsoft\Windows\CurrentVersion\Themes\Personalize
+#   ed AppsUseLightTheme        -&gt; 0
+#   ed SystemUsesLightTheme     -&gt; 0
+#   cd \Control Panel\Desktop
+#   ed Wallpaper                -&gt; C:\Windows\Web\Wallpaper\Perso\fond.jpg
+#   ed WallpaperStyle           -&gt; 10
+#   q  (quitter en enregistrant)
+
+sudo wimlib-imagex update ~/win/iso/sources/install.wim 6 \
+  --command=&quot;add /tmp/hive/NTUSER.DAT /Users/Default/NTUSER.DAT&quot;</pre>
+
+<h3>5. Reconstruire l'ISO amorçable</h3>
+
+<p>C'est l'étape qui casse tout si elle est ratée. Les options qui suivent produisent une ISO qui démarre en UEFI comme en ancien mode.</p>
+
+<pre>xorriso -as mkisofs \
+  -iso-level 3 -udf -J -joliet-long -l -D -relaxed-filenames \
+  -b boot/etfsboot.com -no-emul-boot -boot-load-size 8 \
+  -eltorito-alt-boot -e efi/microsoft/boot/efisys_noprompt.bin -no-emul-boot \
+  -V &quot;WIN10_PERSO&quot; \
+  -o ~/Win10-perso.iso ~/win/iso</pre>
+
+<div class="avis prudence">
+  <div class="marque"></div>
+  <div><p><code>-udf</code> est indispensable : <code>install.wim</code> dépasse 4 Go, et le format ISO classique ne sait pas gérer un fichier de cette taille. C'est l'erreur qui donne une ISO qui se construit puis refuse de s'installer.</p></div>
+</div>
+
+<h3>Vérifier avant de graver</h3>
+
+<pre>xorriso -indev ~/Win10-perso.iso -report_el_torito plain
+# doit lister deux entrees de demarrage : une BIOS (etfsboot) et une UEFI (efisys)</pre>
+
+<h2><span class="num">4</span>Ce que je te conseille</h2>
+
+<ul>
+  <li><strong>Commence par la route A.</strong> Elle donne le même résultat, elle se teste et se corrige en trente secondes — tu changes le <code>.reg</code>, tu réessaies. La route B demande une reconstruction d'ISO à chaque essai.</li>
+  <li><strong>Passe à la route B seulement si</strong> tu veux que le fond soit là dès l'écran de création du compte, ou si tu prévois d'installer la même chose sur plusieurs machines.</li>
+  <li><strong>Dans les deux cas</strong>, garde l'installation officielle : ton activation Pro suit le matériel et se refera seule.</li>
+</ul>
+
+<h2>À vérifier avant de commencer</h2>
+
+<ul class="liste-check">
+  <li><span class="case"></span><div>Mon fond d'écran et mes curseurs sont prêts, sur la clé</div></li>
+  <li><span class="case"></span><div>Les noms de fichiers dans <code>theme.reg</code> correspondent à mes curseurs</div></li>
+  <li><span class="case"></span><div>L'ISO vient bien de microsoft.com</div></li>
+  <li><span class="case"></span><div>J'ai sauvegardé, et je sais repérer la partition EFI sans y toucher</div></li>
+</ul>
+
+<footer>
+  Windows 10 Pro officiel, personnalisation par réponse automatique ou par modification de l'image (wimlib + xorriso).
+</footer>
+
+</div>
+</body>
+</html>
