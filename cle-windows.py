@@ -13,11 +13,11 @@ Usage :
     partition par defaut : /dev/sda3
 """
 
+import os
 import re
+import shutil
 import subprocess
 import sys
-import tempfile
-import os
 
 ALPHABET = "BCDFGHJKMPQRTVWXY2346789"
 
@@ -78,11 +78,22 @@ def principal():
         print("  ruche introuvable :", ruche)
         return 1
 
+    # chntpw tente d'ouvrir la ruche en ecriture meme pour une simple lecture,
+    # et il echoue sur un systeme de fichiers monte en lecture seule. On travaille
+    # donc sur une copie, ce qui laisse ta partition Windows strictement intacte.
+    copie = "/tmp/fritax-SOFTWARE"
+    shutil.copyfile(ruche, copie)
+    os.chmod(copie, 0o600)
+
     # chntpw est interactif : on lui donne les commandes par l'entree standard
     ordres = "cd \\Microsoft\\Windows NT\\CurrentVersion\nhex DigitalProductId\nq\n"
-    r = subprocess.run(["chntpw", "-e", ruche], input=ordres,
-                       capture_output=True, text=True)
-    sortie = r.stdout + r.stderr
+    try:
+        r = subprocess.run(["chntpw", "-e", copie], input=ordres,
+                           capture_output=True, text=True)
+        sortie = r.stdout + r.stderr
+    finally:
+        if os.path.exists(copie):
+            os.remove(copie)
 
     octets = extraire_hex(sortie)
     if len(octets) < 67:
