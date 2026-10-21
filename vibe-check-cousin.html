@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vibe Check — version cousin</title>
+<style>
+  :root{
+    --fond:#0A0C11; --carte:#12151D; --bord:rgba(255,255,255,.09);
+    --texte:#F2F4F8; --doux:#9AA3B2; --faible:#66707F;
+    --bleu:#1267B5; --bleu-clair:#4A9BE8; --or:#E8B44A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--fond); color:var(--texte); min-height:100vh; padding:48px 24px;
+    font-family:'Inter','Helvetica Neue',Arial,sans-serif; -webkit-font-smoothing:antialiased;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .carte{width:100%; max-width:940px; background:var(--carte); border:1px solid var(--bord);
+         border-radius:28px; padding:46px 50px 40px; box-shadow:0 40px 90px -50px #000}
+  .entete{display:flex; align-items:center; justify-content:space-between; margin-bottom:30px}
+  .titre{font-size:15px; font-weight:800; letter-spacing:.22em; text-transform:uppercase; color:var(--doux)}
+  .prix{font-size:13px; color:var(--faible)}
+  .prix b{color:var(--or); font-weight:700}
+  h1{font-size:38px; line-height:1.12; letter-spacing:-.03em; font-weight:800; margin-bottom:10px}
+  h1 em{font-style:normal; color:var(--bleu-clair)}
+  .sous{font-size:16px; color:var(--doux); margin-bottom:34px; line-height:1.5}
+
+  .colonnes{display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--bord);
+            border-radius:20px; overflow:hidden; margin-bottom:26px}
+  .col{padding:22px 24px}
+  .col.gauche{background:rgba(255,255,255,.018); border-right:1px solid var(--bord)}
+  .col.droite{background:rgba(74,155,232,.055)}
+  .entete-col{font-size:12.5px; font-weight:800; letter-spacing:.16em; text-transform:uppercase;
+              margin-bottom:18px; display:flex; align-items:center; gap:9px}
+  .col.gauche .entete-col{color:var(--faible)}
+  .col.droite .entete-col{color:var(--bleu-clair)}
+  .pt{width:8px; height:8px; border-radius:50%; background:currentColor}
+  .item{padding:15px 0; border-bottom:1px solid rgba(255,255,255,.055); font-size:14.5px; line-height:1.45}
+  .item:last-child{border-bottom:0}
+  .item b{display:block; font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+          color:var(--faible); margin-bottom:5px}
+  .col.droite .item b{color:rgba(74,155,232,.85)}
+  .col.droite .item{color:var(--texte)}
+  .col.gauche .item{color:var(--doux)}
+
+  .pied{display:flex; align-items:center; justify-content:space-between; gap:20px;
+        border-top:1px solid var(--bord); padding-top:22px; font-size:13.5px; color:var(--faible)}
+  .pied .signature{color:var(--doux); line-height:1.5; max-width:560px}
+  .pied .signature b{color:var(--texte); font-weight:650}
+  .marque{display:flex; align-items:center; gap:10px; flex:none}
+  .carre{width:12px; height:12px; border-radius:4px; background:var(--bleu-clair)}
+  .marque span{font-size:12.5px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--faible)}
+
+  @media (max-width:720px){
+    .colonnes{grid-template-columns:1fr}
+    .col.gauche{border-right:0; border-bottom:1px solid var(--bord)}
+    h1{font-size:29px} .carte{padding:32px 24px}
+  }
+</style>
+</head>
+<body>
+<div class="carte">
+
+  <div class="entete">
+    <div class="titre">Vibe Check</div>
+    <div class="prix">version cousin · <b>gratuit</b> · sans rendez-vous</div>
+  </div>
+
+  <h1>30 minutes pour débloquer<br>ton projet <em>vibecodé</em>.</h1>
+  <p class="sous">Sauf que là c'est moi qui viens de débloquer le tien. Comparons ce qui tourne.</p>
+
+  <div class="colonnes">
+
+    <div class="col gauche">
+      <div class="entete-col"><span class="pt"></span>Toi, mben dev</div>
+      <div class="item"><b>Langages</b>TypeScript, PHP, JavaScript</div>
+      <div class="item"><b>Framework</b>Node.js, AdonisJS, Next.js</div>
+      <div class="item"><b>Base de données</b>PostgreSQL, Redis</div>
+      <div class="item"><b>IA</b>Intégrations Claude et GPT</div>
+      <div class="item"><b>Déploiement</b>Docker sur un VPS</div>
+      <div class="item"><b>Tarif</b>100 € la demi-heure</div>
+    </div>
+
+    <div class="col droite">
+      <div class="entete-col"><span class="pt"></span>Moi, furaxdev</div>
+      <div class="item"><b>Langages</b>TypeScript, Python, Luau</div>
+      <div class="item"><b>Framework</b>FastAPI, Hono, Expo — web, iOS et Android</div>
+      <div class="item"><b>Base de données</b>PostgreSQL… et un modèle qui tourne dans mon salon</div>
+      <div class="item"><b>IA</b>Claude, GPT, DeepSeek, <span style="color:#4A9BE8">et Qwen en local, qui ne facture pas</span></div>
+      <div class="item"><b>Déploiement</b>Docker, et une distribution Linux compilée à la main</div>
+      <div class="item"><b>Tarif</b>Gratuit — mais tu vas en entendre parler longtemps</div>
+    </div>
+
+  </div>
+
+  <div class="pied">
+    <div class="signature">
+      <b>Je t'aime bien quand même.</b> C'est toi qui m'as montré que Poster tous les jours, ça paie.
+    </div>
+    <div class="marque"><div class="carre"></div><span>Furax</span></div>
+  </div>
+
+</div>
+</body>
+</html>
