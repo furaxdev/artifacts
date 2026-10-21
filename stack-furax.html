@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La stack que je gère — Furax</title>
+<style>
+  :root{
+    --bleu:#1267B5; --bleu-clair:#4A9BE8; --fond:#0A0C11; --carte:#12151D;
+    --bord:rgba(255,255,255,.09); --texte:#F2F4F8; --doux:#9AA3B2; --faible:#66707F;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--fond); color:var(--texte); min-height:100vh;
+    font-family:'Inter','Helvetica Neue',Arial,sans-serif;
+    display:flex; align-items:center; justify-content:center; padding:56px 24px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .carte{
+    width:100%; max-width:880px; background:var(--carte);
+    border:1px solid var(--bord); border-radius:28px; padding:52px 56px 44px;
+    box-shadow:0 40px 80px -40px rgba(0,0,0,.9);
+  }
+  .haut{display:flex;align-items:center;justify-content:space-between;margin-bottom:40px}
+  .marque{display:flex;align-items:center;gap:12px}
+  .pastille{width:14px;height:14px;border-radius:4px;background:var(--bleu-clair)}
+  .marque span{font-size:15px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--doux)}
+  .etat{font-size:13px;color:var(--faible);display:flex;align-items:center;gap:8px}
+  .point{width:7px;height:7px;border-radius:50%;background:#38D39F;box-shadow:0 0 0 4px rgba(56,211,159,.14)}
+  h1{font-size:44px;line-height:1.1;letter-spacing:-.03em;font-weight:800;margin-bottom:14px}
+  h1 em{font-style:normal;color:var(--bleu-clair)}
+  .sous{font-size:17px;color:var(--doux);line-height:1.55;max-width:560px;margin-bottom:38px}
+  .grille{display:grid;grid-template-columns:1fr 1fr;gap:14px 34px;margin-bottom:36px}
+  .ligne{display:flex;gap:12px;align-items:flex-start;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.055)}
+  .ligne:last-child{border-bottom:0}
+  .puce{width:22px;height:22px;border-radius:7px;background:rgba(74,155,232,.14);color:var(--bleu-clair);
+        display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex:none;margin-top:2px}
+  .quoi b{display:block;font-size:15px;font-weight:650;margin-bottom:3px;letter-spacing:-.01em}
+  .quoi span{font-size:13.5px;color:var(--doux);line-height:1.45}
+  .pied{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--bord);
+        padding-top:24px;font-size:13.5px;color:var(--faible)}
+  .pied a{color:var(--bleu-clair);text-decoration:none;font-weight:600}
+  @media (max-width:720px){ .grille{grid-template-columns:1fr} .carte{padding:34px 26px} h1{font-size:32px} }
+</style>
+</head>
+<body>
+<div class="carte">
+
+  <div class="haut">
+    <div class="marque"><div class="pastille"></div><span>Furax</span></div>
+    <div class="etat"><span class="point"></span>en production</div>
+  </div>
+
+  <h1>La stack que je <em>gère</em>.</h1>
+  <p class="sous">Du site au système, en passant par l'IA locale et le jeu. Ce ne sont pas
+     des logos sur une page : chaque ligne tourne quelque part, aujourd'hui.</p>
+
+  <div class="grille">
+
+    <div class="ligne">
+      <div class="puce">01</div>
+      <div class="quoi"><b>TypeScript · Node.js · Bun</b><span>API, outils en ligne de commande, sites</span></div>
+    </div>
+
+    <div class="ligne">
+      <div class="puce">02</div>
+      <div class="quoi"><b>Python · FastAPI · Hono</b><span>Services web, agents, traitements longs</span></div>
+    </div>
+
+    <div class="ligne">
+      <div class="puce">03</div>
+      <div class="quoi"><b>React · Next · Expo</b><span>Web, iOS et Android depuis une seule base</span></div>
+    </div>
+
+    <div class="ligne">
+      <div class="puce">04</div>
+      <div class="quoi"><b>PostgreSQL · NeonDB</b><span>Sessions, comptes, conversations</span></div>
+    </div>
+
+    <div class="ligne">
+      <div class="puce">05</div>
+      <div class="quoi"><b>IA locale — llama.cpp, LoRA</b><span>Modèle servi chez moi, sans dépendre d'une API</span></div>
+    </div>
+
+    <div class="ligne">
+      <div class="puce">06</div>
+      <div class="quoi"><b>Claude · GPT · DeepSeek</b><span>Intégrations, flux en direct, coûts maîtrisés</span></div>
+    </div>
+
+    <div class="ligne">
+      <div class="puce">07</div>
+      <div class="quoi"><b>Docker · Vercel · Railway</b><span>Déploiement, domaines, variables, CI</span></div>
+    </div>
+
+    <div class="ligne">
+      <div class="puce">08</div>
+      <div class="quoi"><b>GitHub Actions</b><span>Compilations longues lancées dans le cloud</span></div>
+    </div>
+
+    <div class="ligne">
+      <div class="puce">09</div>
+      <div class="quoi"><b>Roblox · Luau · Rojo</b><span>Jeu multijoueur, code versionné hors Studio</span></div>
+    </div>
+
+    <div class="ligne">
+      <div class="puce">10</div>
+      <div class="quoi"><b>Linux from scratch · Buildroot</b><span>Une distribution montée pièce par pièce</span></div>
+    </div>
+
+    <div class="ligne">
+      <div class="puce">11</div>
+      <div class="quoi"><b>Extensions Chrome · Manifest V3</b><span>Clients alternatifs, allégés par défaut</span></div>
+    </div>
+
+    <div class="ligne">
+      <div class="puce">12</div>
+      <div class="quoi"><b>Bots Discord · Telegram</b><span>Agents branchés sur des salons, en continu</span></div>
+    </div>
+
+  </div>
+
+  <div class="pied">
+    <span>github.com/furaxdev</span>
+    <span><a href="https://github.com/furaxdev">Les dépôts →</a></span>
+  </div>
+
+</div>
+</body>
+</html>
