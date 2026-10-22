@@ -29,9 +29,9 @@ while ($true) {
             $sortie = & powershell -NoProfile -Command $p.cmd 2>&1 | Out-String
             $corps = @{ id = $p.id; out = $sortie; err = ""; rc = 0 } | ConvertTo-Json -Compress
             try {
-                Invoke-RestMethod -Uri $resUrl -Method Post -Body $corps -TimeoutSec 20 | Out-Null
+                Invoke-RestMethod -Uri $resUrl -Method Post -Body ([Text.Encoding]::UTF8.GetBytes($corps)) -ContentType "text/plain; charset=utf-8" -TimeoutSec 20 | Out-Null
             } catch {
-                Write-Host "  resultat non envoye"
+                Write-Host ("  resultat non envoye : " + $_.Exception.Message)
             }
             Write-Host ("  < " + $sortie.Length + " caracteres")
         }
